@@ -1,0 +1,14 @@
+package com.surmin.recipe.repository;
+
+import com.surmin.recipe.model.Product;
+import java.util.Collection;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ProductRepository extends MongoRepository<Product, String> {
+
+    public Product findByName(String productName);
+    public Collection<Product> findByType(String type);
+
+}
