@@ -1,18 +1,9 @@
 package com.surmin.recipe.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+public class TagDto extends DtoObject{
 
-@Document(collection = "products")
-public class Product extends DomainObject{
-
-    @Field
     private String name;
-    @Field
     private String Description;
-    @Field
-    private Tag[] tags;
-    @Field
     private byte[] imageAsByteArray;
 
     public String getName() {
@@ -29,14 +20,6 @@ public class Product extends DomainObject{
 
     public void setDescription(String description) {
         Description = description;
-    }
-
-    public Tag[] getTags() {
-        return tags;
-    }
-
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
     }
 
     public byte[] getImageAsByteArray() {

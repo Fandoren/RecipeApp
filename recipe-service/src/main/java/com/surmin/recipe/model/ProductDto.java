@@ -1,18 +1,10 @@
 package com.surmin.recipe.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+public class ProductDto extends DtoObject{
 
-@Document(collection = "products")
-public class Product extends DomainObject{
-
-    @Field
     private String name;
-    @Field
     private String Description;
-    @Field
     private Tag[] tags;
-    @Field
     private byte[] imageAsByteArray;
 
     public String getName() {

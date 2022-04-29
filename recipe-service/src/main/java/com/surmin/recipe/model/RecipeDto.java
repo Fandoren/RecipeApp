@@ -2,31 +2,18 @@ package com.surmin.recipe.model;
 
 import java.time.LocalTime;
 import java.util.List;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "recipes")
-public class Recipe extends DomainObject{
+public class RecipeDto extends DtoObject{
 
-    @Field
     private String name;
-    @Field
     private byte[] imageAsByteArray;
-    @Field
     private List<Product> productList;
-    @Field
     private LocalTime cookingTime;
-    @Field
     private LocalTime prepTime;
-    @Field
     private double calories;
-    @Field
     private String description;
-    @Field
     private List<Step> steps;
-    @Field
     private List<Tag> tags;
-    @Field
     private String author;
 
     public String getName() {
