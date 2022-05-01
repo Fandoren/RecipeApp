@@ -2,9 +2,11 @@ package com.surmin.recipe.mapper;
 
 import com.surmin.recipe.model.Recipe;
 import com.surmin.recipe.model.RecipeDto;
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+@Mapper
 public interface RecipeMapper extends EntityToDtoMapper<Recipe, RecipeDto> {
 
     EntityToDtoMapper<Recipe, RecipeDto> INSTANCE = Mappers.getMapper(RecipeMapper.class);
