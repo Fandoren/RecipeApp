@@ -5,9 +5,9 @@ import com.surmin.recipe.model.RecipeDto;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-public interface RecipeMapper extends EntityToDtoMapper<RecipeDto, Recipe> {
+public interface RecipeMapper extends EntityToDtoMapper<Recipe, RecipeDto> {
 
-    EntityToDtoMapper<RecipeDto, Recipe> INSTANCE = Mappers.getMapper(RecipeMapper.class);
+    EntityToDtoMapper<Recipe, RecipeDto> INSTANCE = Mappers.getMapper(RecipeMapper.class);
 
     @Mapping(source = "id", target = "entityId")
     RecipeDto entityToDto(Recipe entity);

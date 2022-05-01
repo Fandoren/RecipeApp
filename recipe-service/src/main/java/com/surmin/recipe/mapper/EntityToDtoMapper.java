@@ -3,7 +3,7 @@ package com.surmin.recipe.mapper;
 import com.surmin.recipe.model.DomainObject;
 import com.surmin.recipe.model.DtoObject;
 
-public interface EntityToDtoMapper<D extends DtoObject, E extends DomainObject> {
+public interface EntityToDtoMapper<E extends DomainObject, D extends DtoObject> {
 
     /**
      * Converts entity to dto object.

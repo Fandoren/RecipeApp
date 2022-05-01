@@ -1,8 +1,8 @@
 package com.surmin.recipe.controller;
 
-import com.surmin.recipe.model.Recipe;
+import com.surmin.recipe.model.RecipeDto;
 import com.surmin.recipe.service.RecipeService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.Collection;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,30 +23,31 @@ public class RecipeController {
     }
 
     @GetMapping("/recipe/{entityId}")
-    public String get(@PathVariable("entityId") String entityId) throws JsonProcessingException {
+    public RecipeDto get(@PathVariable("entityId") String entityId){
         return recipeService.get(entityId);
     }
 
     @GetMapping("/recipe")
-    public String getAll() throws JsonProcessingException {
+    public Collection<RecipeDto> getAll(){
         return recipeService.getAll();
     }
 
     @PostMapping("/recipe")
     @ResponseStatus(HttpStatus.CREATED)
-    public Recipe insert(@RequestBody Recipe recipe) {
-        return recipeService.insert(recipe);
+    public RecipeDto save(@RequestBody RecipeDto recipeDto) {
+        return recipeService.save(recipeDto);
     }
 
     @PutMapping("/recipe")
     @ResponseStatus(HttpStatus.CREATED)
-    public Recipe edit(@RequestBody Recipe recipe) {
-        return recipeService.edit(recipe);
+    public RecipeDto edit(@RequestBody RecipeDto recipeDto) {
+        return recipeService.update(recipeDto);
     }
 
     @DeleteMapping("/recipe/{entityId}")
     public void delete(@PathVariable("entityId") String entityId) {
-        recipeService.delete(entityId);
+        RecipeDto recipeDto = recipeService.get(entityId);
+        recipeService.delete(recipeDto);
     }
 
 }

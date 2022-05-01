@@ -1,14 +1,16 @@
 package com.surmin.recipe.service;
 
+import com.surmin.recipe.mapper.ProductMapper;
 import com.surmin.recipe.model.Product;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.surmin.recipe.model.ProductDto;
+import com.surmin.recipe.repository.ProductRepository;
+import org.springframework.stereotype.Service;
 
-public interface ProductService {
+@Service
+public class ProductService extends CrudService<ProductDto, Product, ProductRepository>{
 
-    public String get(String id) throws JsonProcessingException;
-    public String getAll() throws JsonProcessingException;
-    public Product edit(Product product);
-    public Product insert(Product product);
-    public void delete(String id);
+    public ProductService(ProductRepository productRepository) {
+        super(ProductMapper.INSTANCE, productRepository);
+    }
 
 }

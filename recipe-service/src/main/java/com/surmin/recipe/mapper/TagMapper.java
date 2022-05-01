@@ -7,9 +7,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-public interface TagMapper extends EntityToDtoMapper<TagDto, Tag> {
+public interface TagMapper extends EntityToDtoMapper<Tag, TagDto> {
 
-    EntityToDtoMapper<TagDto, Tag> INSTANCE = Mappers.getMapper(TagMapper.class);
+    EntityToDtoMapper<Tag, TagDto> INSTANCE = Mappers.getMapper(TagMapper.class);
 
     @Mapping(source = "id", target = "entityId")
     TagDto entityToDto(Tag entity);

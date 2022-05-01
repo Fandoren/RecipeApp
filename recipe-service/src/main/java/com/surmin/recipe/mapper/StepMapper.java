@@ -5,9 +5,9 @@ import com.surmin.recipe.model.StepDto;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-public interface StepMapper extends EntityToDtoMapper<StepDto, Step> {
+public interface StepMapper extends EntityToDtoMapper<Step, StepDto> {
 
-    EntityToDtoMapper<StepDto, Step> INSTANCE = Mappers.getMapper(StepMapper.class);
+    EntityToDtoMapper<Step, StepDto> INSTANCE = Mappers.getMapper(StepMapper.class);
 
     @Mapping(source = "id", target = "entityId")
     StepDto entityToDto(Step entity);

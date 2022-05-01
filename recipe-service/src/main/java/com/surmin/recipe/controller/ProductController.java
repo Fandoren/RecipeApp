@@ -1,8 +1,8 @@
 package com.surmin.recipe.controller;
 
-import com.surmin.recipe.model.Product;
+import com.surmin.recipe.model.ProductDto;
 import com.surmin.recipe.service.ProductService;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import java.util.Collection;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,30 +23,31 @@ public class ProductController {
     }
 
     @GetMapping("/product/{entityId}")
-    public String get(@PathVariable("entityId") String entityId) throws JsonProcessingException {
+    public ProductDto get(@PathVariable("entityId") String entityId){
        return productService.get(entityId);
     }
 
     @GetMapping("/product")
-    public String getAll() throws JsonProcessingException {
+    public Collection<ProductDto> getAll(){
         return productService.getAll();
     }
 
     @PostMapping("/product")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product insert(@RequestBody Product product) {
-        return productService.insert(product);
+    public ProductDto save(@RequestBody ProductDto productDto) {
+        return productService.save(productDto);
     }
 
     @PutMapping("/product")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product edit(@RequestBody Product product) {
-        return productService.edit(product);
+    public ProductDto update(@RequestBody ProductDto productDto) {
+        return productService.update(productDto);
     }
 
     @DeleteMapping("/product/{entityId}")
     public void delete(@PathVariable("entityId") String entityId) {
-        productService.delete(entityId);
+        ProductDto productDto = productService.get(entityId);
+        productService.delete(productDto);
     }
 
 }
