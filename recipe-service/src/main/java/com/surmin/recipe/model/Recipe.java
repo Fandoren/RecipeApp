@@ -1,7 +1,7 @@
 package com.surmin.recipe.model;
 
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -13,7 +13,7 @@ public class Recipe extends DomainObject{
     @Field
     private byte[] imageAsByteArray;
     @Field
-    private List<Product> productList;
+    private Set<String> productIds;
     @Field
     private LocalTime cookingTime;
     @Field
@@ -23,9 +23,9 @@ public class Recipe extends DomainObject{
     @Field
     private String description;
     @Field
-    private List<Step> steps;
+    private Set<String> stepIds;
     @Field
-    private List<Tag> tags;
+    private Set<String> tagIds;
     @Field
     private String author;
 
@@ -45,12 +45,12 @@ public class Recipe extends DomainObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public Set<String> getProductIds() {
+        return productIds;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProductIds(Set<String> productIds) {
+        this.productIds = productIds;
     }
 
     public LocalTime getCookingTime() {
@@ -85,20 +85,20 @@ public class Recipe extends DomainObject{
         this.description = description;
     }
 
-    public List<Step> getSteps() {
-        return steps;
+    public Set<String> getStepIds() {
+        return stepIds;
     }
 
-    public void setSteps(List<Step> steps) {
-        this.steps = steps;
+    public void setStepIds(Set<String> stepIds) {
+        this.stepIds = stepIds;
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public Set<String> getTagIds() {
+        return tagIds;
     }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
+    public void setTagIds(Set<String> tagIds) {
+        this.tagIds = tagIds;
     }
 
     public String getAuthor() {

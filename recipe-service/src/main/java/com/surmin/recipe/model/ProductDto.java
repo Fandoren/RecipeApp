@@ -1,10 +1,12 @@
 package com.surmin.recipe.model;
 
+import java.util.Set;
+
 public class ProductDto extends DtoObject{
 
     private String name;
     private String Description;
-    private Tag[] tags;
+    private Set<String> tagIds;
     private byte[] imageAsByteArray;
 
     public String getName() {
@@ -23,12 +25,12 @@ public class ProductDto extends DtoObject{
         Description = description;
     }
 
-    public Tag[] getTags() {
-        return tags;
+    public Set<String> getTagIds() {
+        return tagIds;
     }
 
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
+    public void setTagIds(Set<String> tagIds) {
+        this.tagIds = tagIds;
     }
 
     public byte[] getImageAsByteArray() {

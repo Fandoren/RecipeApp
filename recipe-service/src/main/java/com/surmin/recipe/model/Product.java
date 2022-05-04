@@ -1,5 +1,6 @@
 package com.surmin.recipe.model;
 
+import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -11,7 +12,7 @@ public class Product extends DomainObject{
     @Field
     private String Description;
     @Field
-    private Tag[] tags;
+    private Set<String> tagIds;
     @Field
     private byte[] imageAsByteArray;
 
@@ -31,12 +32,12 @@ public class Product extends DomainObject{
         Description = description;
     }
 
-    public Tag[] getTags() {
-        return tags;
+    public Set<String> getTagIds() {
+        return tagIds;
     }
 
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
+    public void setTagIds(Set<String> tagIds) {
+        this.tagIds = tagIds;
     }
 
     public byte[] getImageAsByteArray() {

@@ -1,19 +1,19 @@
 package com.surmin.recipe.model;
 
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Set;
 
 public class RecipeDto extends DtoObject{
 
     private String name;
     private byte[] imageAsByteArray;
-    private List<Product> productList;
+    private Set<String> productIds;
     private LocalTime cookingTime;
     private LocalTime prepTime;
     private double calories;
     private String description;
-    private List<Step> steps;
-    private List<Tag> tags;
+    private Set<String> stepIds;
+    private Set<String> tagIds;
     private String author;
 
     public String getName() {
@@ -32,12 +32,12 @@ public class RecipeDto extends DtoObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public Set<String> getProductIds() {
+        return productIds;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProductIds(Set<String> productIds) {
+        this.productIds = productIds;
     }
 
     public LocalTime getCookingTime() {
@@ -72,20 +72,20 @@ public class RecipeDto extends DtoObject{
         this.description = description;
     }
 
-    public List<Step> getSteps() {
-        return steps;
+    public Set<String> getStepIds() {
+        return stepIds;
     }
 
-    public void setSteps(List<Step> steps) {
-        this.steps = steps;
+    public void setStepIds(Set<String> stepIds) {
+        this.stepIds = stepIds;
     }
 
-    public List<Tag> getTags() {
-        return tags;
+    public Set<String> getTagIds() {
+        return tagIds;
     }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
+    public void setTagIds(Set<String> tagIds) {
+        this.tagIds = tagIds;
     }
 
     public String getAuthor() {
