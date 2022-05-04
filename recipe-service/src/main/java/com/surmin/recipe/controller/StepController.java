@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1/steps")
 public class StepController {
 
     private final StepService stepService;
@@ -22,29 +24,29 @@ public class StepController {
         this.stepService = stepService;
     }
 
-    @GetMapping("/step/{entityId}")
+    @GetMapping("/{entityId}")
     public StepDto get(@PathVariable("entityId") String entityId){
         return stepService.get(entityId);
     }
 
-    @GetMapping("/step")
+    @GetMapping
     public Collection<StepDto> getAll(){
         return stepService.getAll();
     }
 
-    @PostMapping("/step")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StepDto save(@RequestBody StepDto stepDto) {
         return stepService.save(stepDto);
     }
 
-    @PutMapping("/step")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public StepDto update(@RequestBody StepDto stepDto) {
         return stepService.update(stepDto);
     }
 
-    @DeleteMapping("/step/{entityId}")
+    @DeleteMapping("/{entityId}")
     public void delete(@PathVariable("entityId") String entityId) {
         StepDto stepDto = stepService.get(entityId);
         stepService.delete(stepDto);

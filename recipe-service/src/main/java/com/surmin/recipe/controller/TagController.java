@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/api/v1/tags")
 public class TagController {
 
     private final TagService tagService;
@@ -20,29 +24,29 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @GetMapping("/tag/{entityId}")
+    @GetMapping("{entityId}")
     public TagDto get(@PathVariable("entityId") String entityId){
         return tagService.get(entityId);
     }
 
-    @GetMapping("/tag")
+    @GetMapping
     public Collection<TagDto> getAll(){
         return tagService.getAll();
     }
 
-    @PostMapping("/tag")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TagDto save(@RequestBody TagDto tagDto) {
         return tagService.save(tagDto);
     }
 
-    @PutMapping("/tag")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TagDto update(@RequestBody TagDto tagDto) {
         return tagService.update(tagDto);
     }
 
-    @DeleteMapping("/tag/{entityId}")
+    @DeleteMapping("/{entityId}")
     public void delete(@PathVariable("entityId") String entityId) {
         TagDto tagDto = tagService.get(entityId);
         tagService.delete(tagDto);

@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api/v1/recipes")
 public class RecipeController {
 
     private final RecipeService recipeService;
@@ -22,29 +24,29 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/recipe/{entityId}")
+    @GetMapping("{entityId}")
     public RecipeDto get(@PathVariable("entityId") String entityId){
         return recipeService.get(entityId);
     }
 
-    @GetMapping("/recipe")
+    @GetMapping
     public Collection<RecipeDto> getAll(){
         return recipeService.getAll();
     }
 
-    @PostMapping("/recipe")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RecipeDto save(@RequestBody RecipeDto recipeDto) {
         return recipeService.save(recipeDto);
     }
 
-    @PutMapping("/recipe")
+    @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RecipeDto edit(@RequestBody RecipeDto recipeDto) {
         return recipeService.update(recipeDto);
     }
 
-    @DeleteMapping("/recipe/{entityId}")
+    @DeleteMapping("/{entityId}")
     public void delete(@PathVariable("entityId") String entityId) {
         RecipeDto recipeDto = recipeService.get(entityId);
         recipeService.delete(recipeDto);
