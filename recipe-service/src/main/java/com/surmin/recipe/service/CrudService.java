@@ -5,6 +5,8 @@ import com.surmin.recipe.model.DomainObject;
 import com.surmin.recipe.model.DtoObject;
 import java.util.Collection;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public abstract class CrudService <D extends DtoObject, E extends DomainObject, R extends MongoRepository<E, String>> {
@@ -17,6 +19,10 @@ public abstract class CrudService <D extends DtoObject, E extends DomainObject, 
         this.mongoRepository = mongoRepository;
     }
 
+    protected R getMongoRepository() {
+        return mongoRepository;
+    }
+
     public D get(String entityId) {
         E entity = mongoRepository.findById(entityId).orElse(null);
         return entity == null ? null : mapper.entityToDto(entity);
@@ -24,6 +30,10 @@ public abstract class CrudService <D extends DtoObject, E extends DomainObject, 
 
     public Collection<D> getAll() {
         return mongoRepository.findAll().stream().map(mapper::entityToDto).collect(Collectors.toList());
+    }
+
+    public Page<D> getAll(Pageable pageable) {
+        return mongoRepository.findAll(pageable).map(mapper::entityToDto);
     }
 
     public D save(D objectDto) {
