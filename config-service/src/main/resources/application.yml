@@ -1,9 +1,18 @@
+server:
+  port: 10100
 spring:
   application:
     name: config-service
-
-server:
-  port: 10100
+  cloud:
+    config:
+      enabled: true
+      server:
+        git:
+          uri: https://github.com/Fandoren/recipe-config.git
+          search-paths:
+            - spec/config/default
+          force-pull: false
+          ignoreLocalSshSettings: false
 
 eureka:
   client:
@@ -11,5 +20,3 @@ eureka:
     registry-fetch-interval-seconds: 5
     service-url:
       defaultZone: http://localhost:10050/eureka/
-  instance:
-    prefer-ip-address: true

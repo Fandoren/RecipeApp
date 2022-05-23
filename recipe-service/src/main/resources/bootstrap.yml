@@ -1,10 +1,9 @@
 spring:
   application:
     name: recipe-service
-
-server:
-  port: 10010
-
+  cloud:
+    config:
+      uri: http://localhost:10100
 eureka:
   client:
     service-url:
