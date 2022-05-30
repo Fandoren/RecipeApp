@@ -3,7 +3,7 @@ package com.surmin.recipe.model;
 public class TagDto extends DtoObject{
 
     private String name;
-    private String Description;
+    private String description;
     private byte[] imageAsByteArray;
 
     public String getName() {
@@ -15,11 +15,11 @@ public class TagDto extends DtoObject{
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public byte[] getImageAsByteArray() {

@@ -5,7 +5,7 @@ import java.util.Set;
 public class ProductDto extends DtoObject{
 
     private String name;
-    private String Description;
+    private String description;
     private Set<String> tagIds;
     private byte[] imageAsByteArray;
 
@@ -18,11 +18,11 @@ public class ProductDto extends DtoObject{
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public Set<String> getTagIds() {

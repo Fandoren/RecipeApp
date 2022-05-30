@@ -7,7 +7,7 @@ public class RecipeDto extends DtoObject{
 
     private String name;
     private byte[] imageAsByteArray;
-    private Set<String> productIds;
+    private Set<String> ingredientIds;
     private LocalTime cookingTime;
     private LocalTime prepTime;
     private double calories;
@@ -32,12 +32,12 @@ public class RecipeDto extends DtoObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public Set<String> getProductIds() {
-        return productIds;
+    public Set<String> getIngredientIds() {
+        return ingredientIds;
     }
 
-    public void setProductIds(Set<String> productIds) {
-        this.productIds = productIds;
+    public void setIngredientIds(Set<String> ingredientIds) {
+        this.ingredientIds = ingredientIds;
     }
 
     public LocalTime getCookingTime() {

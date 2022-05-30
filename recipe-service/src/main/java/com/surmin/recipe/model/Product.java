@@ -10,7 +10,7 @@ public class Product extends DomainObject{
     @Field
     private String name;
     @Field
-    private String Description;
+    private String description;
     @Field
     private Set<String> tagIds;
     @Field
@@ -25,11 +25,11 @@ public class Product extends DomainObject{
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.description = description;
     }
 
     public Set<String> getTagIds() {

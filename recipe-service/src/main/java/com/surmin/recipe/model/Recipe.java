@@ -13,7 +13,7 @@ public class Recipe extends DomainObject{
     @Field
     private byte[] imageAsByteArray;
     @Field
-    private Set<String> productIds;
+    private Set<String> ingredientIds;
     @Field
     private LocalTime cookingTime;
     @Field
@@ -45,12 +45,12 @@ public class Recipe extends DomainObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public Set<String> getProductIds() {
-        return productIds;
+    public Set<String> getIngredientIds() {
+        return ingredientIds;
     }
 
-    public void setProductIds(Set<String> productIds) {
-        this.productIds = productIds;
+    public void setIngredientIds(Set<String> ingredientIds) {
+        this.ingredientIds = ingredientIds;
     }
 
     public LocalTime getCookingTime() {
