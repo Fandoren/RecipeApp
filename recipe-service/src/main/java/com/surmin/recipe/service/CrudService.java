@@ -31,6 +31,8 @@ public abstract class CrudService <D extends DtoObject, E extends DomainObject, 
         return mongoRepository;
     }
 
+    protected EntityToDtoMapper<E, D> getMapper() {return mapper;}
+
     public D get(String entityId) {
         if(!StringUtils.hasText(entityId)) {
             throw new EntityNotFoundException(ENTITY_ID_NOT_PROVIDED);
