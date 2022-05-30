@@ -42,6 +42,11 @@ public class TagController {
         return tagService.getAll();
     }
 
+    @PostMapping("/list")
+    public Collection<TagDto> getAllByIds(@RequestBody Collection<String> ids){
+        return tagService.getTagsByIds(ids);
+    }
+
     @GetMapping("page/{pageId}")
     public Page<TagDto> getPage(@PathVariable("pageId") Integer pageId) {
         return tagService.getPage(pageId);

@@ -1,11 +1,15 @@
 package com.surmin.recipe.service;
 
 import com.surmin.recipe.exception.EntityNotFoundException;
+import com.surmin.recipe.mapper.EntityToDtoMapper;
 import com.surmin.recipe.mapper.TagMapper;
 import com.surmin.recipe.model.Tag;
 import com.surmin.recipe.model.TagDto;
 import com.surmin.recipe.repository.TagRepository;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +40,15 @@ public class TagService extends CrudService<TagDto, Tag, TagRepository>{
             throw new EntityNotFoundException(TAG_WAS_NOT_FOUND);
         }
         return tagOptional.get();
+    }
+
+    public Collection<TagDto> getTagsByIds(Collection<String> entityIds) {
+        List<TagDto> tags = new ArrayList<>();
+        EntityToDtoMapper<Tag, TagDto> mapper = getMapper();
+        getMongoRepository().findAllById(entityIds).forEach(tag -> {
+            tags.add(mapper.entityToDto(tag));
+        });
+        return tags;
     }
 
     public void saveImage(String entityId, byte[] imageAsByteArray) throws IOException {
