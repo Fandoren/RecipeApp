@@ -1,0 +1,28 @@
+server:
+  port: 10060
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10050/eureka/
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      enabled: false
+    gateway:
+      routes:
+        - id: product-service
+          uri: http://localhost:10010
+          predicates:
+            - Path=/api/v1/products/
+        - id: tag-service
+          uri: http://localhost:10010
+          predicates:
+            - Path=/api/v1/tags/
+        - id: step-service
+          uri: http://localhost:10010
+          predicates:
+            - Path=/api/v1/steps/
