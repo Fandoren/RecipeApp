@@ -53,6 +53,11 @@ public class ProductController {
         return productService.save(productDto);
     }
 
+    @GetMapping("/tags/{tagId}")
+    public Collection<ProductDto> getByTagId(@PathVariable("tagId") String entityId) {
+        return productService.getProductsByTagId(entityId);
+    }
+
     @GetMapping("/{entityId}/image")
     public ResponseEntity<byte[]> getImage(
             @PathVariable("entityId") String id

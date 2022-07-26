@@ -6,7 +6,9 @@ import com.surmin.recipe.model.Product;
 import com.surmin.recipe.model.ProductDto;
 import com.surmin.recipe.repository.ProductRepository;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +38,11 @@ public class ProductService extends CrudService<ProductDto, Product, ProductRepo
             throw new EntityNotFoundException(PRODUCT_WAS_NOT_FOUND);
         }
         return productOptional.get();
+    }
+
+    public Collection<ProductDto> getProductsByTagId(String entityId) {
+        Collection<Product> products = getMongoRepository().findByTagIdsIn(entityId);
+        return products.stream().map(getMapper()::entityToDto).collect(Collectors.toList());
     }
 
     public void saveImage(String entityId, byte[] imageAsByteArray) throws IOException {
