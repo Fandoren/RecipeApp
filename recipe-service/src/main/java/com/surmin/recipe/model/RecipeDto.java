@@ -1,6 +1,7 @@
 package com.surmin.recipe.model;
 
 import java.time.LocalTime;
+import java.util.Collection;
 import java.util.Set;
 
 public class RecipeDto extends DtoObject{
@@ -12,7 +13,7 @@ public class RecipeDto extends DtoObject{
     private LocalTime prepTime;
     private double calories;
     private String description;
-    private Set<String> stepIds;
+    private Collection<Step> steps;
     private Set<String> tagIds;
     private String author;
 
@@ -72,12 +73,12 @@ public class RecipeDto extends DtoObject{
         this.description = description;
     }
 
-    public Set<String> getStepIds() {
-        return stepIds;
+    public Collection<Step> getSteps() {
+        return steps;
     }
 
-    public void setStepIds(Set<String> stepIds) {
-        this.stepIds = stepIds;
+    public void setStepIds(Collection<Step> steps) {
+        this.steps = steps;
     }
 
     public Set<String> getTagIds() {
