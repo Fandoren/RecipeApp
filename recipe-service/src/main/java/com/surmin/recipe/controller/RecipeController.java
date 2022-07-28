@@ -3,6 +3,7 @@ package com.surmin.recipe.controller;
 import com.surmin.recipe.model.RecipeDto;
 import com.surmin.recipe.service.RecipeService;
 import java.util.Collection;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,11 @@ public class RecipeController {
     @GetMapping
     public Collection<RecipeDto> getAll(){
         return recipeService.getAll();
+    }
+
+    @GetMapping("page/{pageId}")
+    public Page<RecipeDto> getPage(@PathVariable("pageId") Integer pageId) {
+        return recipeService.getPage(pageId);
     }
 
     @PostMapping
