@@ -1,16 +1,9 @@
 package com.surmin.recipe.model;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-@Document(collection = "ingredients")
 public class Ingredient extends DomainObject{
 
-    @Field
     private String productId;
-    @Field
     private double weight;
-    @Field
     private Unit unit;
 
     public String getProductId() {

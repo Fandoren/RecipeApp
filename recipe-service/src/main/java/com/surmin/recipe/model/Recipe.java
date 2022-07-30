@@ -1,6 +1,5 @@
 package com.surmin.recipe.model;
 
-import java.time.LocalTime;
 import java.util.Collection;
 import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,11 +13,11 @@ public class Recipe extends DomainObject{
     @Field
     private byte[] imageAsByteArray;
     @Field
-    private Set<String> ingredientIds;
+    private Collection<Ingredient> ingredients;
     @Field
-    private LocalTime cookingTime;
+    private int cookingTime;
     @Field
-    private LocalTime prepTime;
+    private int prepTime;
     @Field
     private double calories;
     @Field
@@ -46,27 +45,27 @@ public class Recipe extends DomainObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public Set<String> getIngredientIds() {
-        return ingredientIds;
+    public Collection<Ingredient> getIngredients() {
+        return ingredients;
     }
 
-    public void setIngredientIds(Set<String> ingredientIds) {
-        this.ingredientIds = ingredientIds;
+    public void setIngredients(Collection<Ingredient> ingredientIds) {
+        this.ingredients = ingredients;
     }
 
-    public LocalTime getCookingTime() {
+    public int getCookingTime() {
         return cookingTime;
     }
 
-    public void setCookingTime(LocalTime cookingTime) {
+    public void setCookingTime(int cookingTime) {
         this.cookingTime = cookingTime;
     }
 
-    public LocalTime getPrepTime() {
+    public int getPrepTime() {
         return prepTime;
     }
 
-    public void setPrepTime(LocalTime prepTime) {
+    public void setPrepTime(int prepTime) {
         this.prepTime = prepTime;
     }
 

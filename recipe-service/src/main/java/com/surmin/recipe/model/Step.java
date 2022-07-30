@@ -1,17 +1,11 @@
 package com.surmin.recipe.model;
 
 import java.util.List;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection = "steps")
 public class Step extends DomainObject{
 
-    @Field
     private String title;
-    @Field
     private String description;
-    @Field
     private List<byte[]> imagesAsByteArray;
 
     public String getTitle() {
