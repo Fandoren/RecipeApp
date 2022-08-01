@@ -1,18 +1,18 @@
 package com.surmin.recipe.model;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 public class RecipeDto extends DtoObject{
 
     private String name;
     private byte[] imageAsByteArray;
-    private Collection<Ingredient> ingredients;
+    private List<Ingredient> ingredients;
     private int cookingTime;
     private int prepTime;
-    private double calories;
+    private int calories;
     private String description;
-    private Collection<Step> steps;
+    private List<Step> steps;
     private Set<String> tagIds;
     private String author;
 
@@ -32,11 +32,11 @@ public class RecipeDto extends DtoObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public Collection<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Collection<Ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -56,11 +56,11 @@ public class RecipeDto extends DtoObject{
         this.prepTime = prepTime;
     }
 
-    public double getCalories() {
+    public int getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(int calories) {
         this.calories = calories;
     }
 
@@ -72,11 +72,11 @@ public class RecipeDto extends DtoObject{
         this.description = description;
     }
 
-    public Collection<Step> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setStepIds(Collection<Step> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 

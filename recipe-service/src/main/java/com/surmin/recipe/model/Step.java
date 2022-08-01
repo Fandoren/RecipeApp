@@ -1,12 +1,9 @@
 package com.surmin.recipe.model;
 
-import java.util.List;
-
-public class Step extends DomainObject{
+public class Step{
 
     private String title;
     private String description;
-    private List<byte[]> imagesAsByteArray;
 
     public String getTitle() {
         return title;
@@ -22,13 +19,5 @@ public class Step extends DomainObject{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<byte[]> getImagesAsByteArray() {
-        return imagesAsByteArray;
-    }
-
-    public void setImagesAsByteArray(List<byte[]> imagesAsByteArray) {
-        this.imagesAsByteArray = imagesAsByteArray;
     }
 }

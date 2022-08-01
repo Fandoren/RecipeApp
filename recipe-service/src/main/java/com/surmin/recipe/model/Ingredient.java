@@ -1,9 +1,9 @@
 package com.surmin.recipe.model;
 
-public class Ingredient extends DomainObject{
+public class Ingredient{
 
     private String productId;
-    private double weight;
+    private String weight;
     private Unit unit;
 
     public String getProductId() {
@@ -14,11 +14,11 @@ public class Ingredient extends DomainObject{
         this.productId = productId;
     }
 
-    public double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 

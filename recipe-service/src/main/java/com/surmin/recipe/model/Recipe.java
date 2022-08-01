@@ -1,6 +1,6 @@
 package com.surmin.recipe.model;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -13,17 +13,17 @@ public class Recipe extends DomainObject{
     @Field
     private byte[] imageAsByteArray;
     @Field
-    private Collection<Ingredient> ingredients;
+    private List<Ingredient> ingredients;
     @Field
     private int cookingTime;
     @Field
     private int prepTime;
     @Field
-    private double calories;
+    private int calories;
     @Field
     private String description;
     @Field
-    private Collection<Step> steps;
+    private List<Step> steps;
     @Field
     private Set<String> tagIds;
     @Field
@@ -45,11 +45,11 @@ public class Recipe extends DomainObject{
         this.imageAsByteArray = imageAsByteArray;
     }
 
-    public Collection<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(Collection<Ingredient> ingredientIds) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -69,11 +69,11 @@ public class Recipe extends DomainObject{
         this.prepTime = prepTime;
     }
 
-    public double getCalories() {
+    public int getCalories() {
         return calories;
     }
 
-    public void setCalories(double calories) {
+    public void setCalories(int calories) {
         this.calories = calories;
     }
 
@@ -85,11 +85,11 @@ public class Recipe extends DomainObject{
         this.description = description;
     }
 
-    public Collection<Step> getSteps() {
+    public List<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(Collection<Step> steps) {
+    public void setSteps(List<Step> steps) {
         this.steps = steps;
     }
 
