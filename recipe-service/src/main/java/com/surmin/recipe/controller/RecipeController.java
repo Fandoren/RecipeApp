@@ -6,6 +6,7 @@ import com.surmin.recipe.service.RecipeService;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Collection;
+import java.util.Map;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,18 @@ public class RecipeController {
     @GetMapping("page/{pageId}")
     public Page<RecipeDto> getPage(@PathVariable("pageId") Integer pageId) {
         return recipeService.getPage(pageId);
+    }
+
+    @PostMapping("page/{pageId}")
+    public Page<RecipeDto> getPageFilterByTagAndProductIds(
+            @PathVariable("pageId") Integer pageId,
+            @RequestBody Map<String,Collection<String>> body) {
+        return recipeService.getPageFilterByTagAndProductIds(pageId, body.get("tagIds"), body.get("productIds"));
+    }
+
+    @GetMapping("products/{entityId}")
+    public Collection<RecipeDto> getByProductIdIn(@PathVariable("entityId") String entityId) {
+        return recipeService.getByProductId(entityId);
     }
 
     @PostMapping
