@@ -1,12 +1,15 @@
 package com.surmin.recipe.service;
 
 import com.surmin.recipe.exception.EntityNotFoundException;
+import com.surmin.recipe.mapper.EntityToDtoMapper;
 import com.surmin.recipe.mapper.ProductMapper;
 import com.surmin.recipe.model.Product;
 import com.surmin.recipe.model.ProductDto;
 import com.surmin.recipe.repository.ProductRepository;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
@@ -32,6 +35,11 @@ public class ProductService extends CrudService<ProductDto, Product, ProductRepo
         return getAll(pageable);
     }
 
+    public Page<ProductDto> getPageFilterByTagIds(Integer pageId, Collection<String> tagIds) {
+        Pageable pageable = PageRequest.of(pageId, 8);
+        return getMongoRepository().findByTagIdsIn(tagIds, pageable);
+    }
+
     public Product getProduct(String entityId) {
         Optional<Product> productOptional = getMongoRepository().findById(entityId);
         if (productOptional.isEmpty()) {
@@ -43,6 +51,15 @@ public class ProductService extends CrudService<ProductDto, Product, ProductRepo
     public Collection<ProductDto> getProductsByTagId(String entityId) {
         Collection<Product> products = getMongoRepository().findByTagIdsIn(entityId);
         return products.stream().map(getMapper()::entityToDto).collect(Collectors.toList());
+    }
+
+    public Collection<ProductDto> getProductsByIds(Collection<String> entityIds) {
+        List<ProductDto> products = new ArrayList<>();
+        EntityToDtoMapper<Product, ProductDto> mapper = getMapper();
+        getMongoRepository().findAllById(entityIds).forEach(product -> {
+            products.add(mapper.entityToDto(product));
+        });
+        return products;
     }
 
     public void saveImage(String entityId, byte[] imageAsByteArray) throws IOException {

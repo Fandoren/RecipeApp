@@ -42,9 +42,19 @@ public class ProductController {
         return productService.getAll();
     }
 
+    @PostMapping("/list")
+    public Collection<ProductDto> getAllByIds(@RequestBody Collection<String> entityIds) {
+        return productService.getProductsByIds(entityIds);
+    }
+
     @GetMapping("page/{pageId}")
     public Page<ProductDto> getPage(@PathVariable("pageId") Integer pageId) {
         return productService.getPage(pageId);
+    }
+
+    @PostMapping("page/{pageId}")
+    public Page<ProductDto> getPageFilterByTagIds(@PathVariable("pageId") Integer pageId, @RequestBody Collection<String> entityIds) {
+        return productService.getPageFilterByTagIds(pageId, entityIds);
     }
 
     @PostMapping
