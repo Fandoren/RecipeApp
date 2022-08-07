@@ -2,15 +2,15 @@ package com.surmin.recipe.model;
 
 public class Step{
 
-    private String title;
+    private String image;
     private String description;
 
-    public String getTitle() {
-        return title;
+    public String getImage() {
+        return image;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getDescription() {

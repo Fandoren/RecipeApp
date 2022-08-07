@@ -3,7 +3,7 @@ package com.surmin.recipe.model;
 public class Ingredient{
 
     private String productId;
-    private String weight;
+    private double weight;
     private Unit unit;
 
     public String getProductId() {
@@ -14,11 +14,11 @@ public class Ingredient{
         this.productId = productId;
     }
 
-    public String getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
