@@ -1,3 +1,8 @@
 spring:
+  main:
+    web-application-type: reactive
   application:
     name: gateway-service
+  cloud:
+    config:
+      uri: http://localhost:10100
