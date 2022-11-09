@@ -36,7 +36,7 @@ public class TagServiceTest {
 
     @AfterAll
     public void tearDown() {
-        tagService.getAll().forEach((dto) ->tagService.delete(dto));
+        //tagService.getAll().forEach((dto) ->tagService.delete(dto));
     }
 
     @Test

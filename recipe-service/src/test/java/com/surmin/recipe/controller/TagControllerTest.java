@@ -54,6 +54,6 @@ public class TagControllerTest {
 
     @AfterAll
     public void drop() {
-        tagService.getAll().forEach((dto) ->tagService.delete(dto));
+        //tagService.getAll().forEach((dto) ->tagService.delete(dto));
     }
 }
