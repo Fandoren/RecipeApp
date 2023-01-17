@@ -60,6 +60,12 @@ public class RecipeController {
         return recipeService.getByProductId(entityId);
     }
 
+    @PostMapping("getRecipesByProductIds")
+    @ResponseStatus(HttpStatus.OK)
+    public Collection<RecipeDto> getByProductIds(@RequestBody Collection<String> productIds) {
+        return recipeService.getByProductIds(productIds);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RecipeDto save(@RequestBody RecipeDto recipeDto) {

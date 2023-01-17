@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecipeRepository extends MongoRepository<Recipe, String> {
     @Query("{'ingredients.productId': ?0}")
-    Collection<Recipe> findByProductIdIn(String entityId);
+    Collection<Recipe> findByProductIdIn(Collection<String> entityId);
 }

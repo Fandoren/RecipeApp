@@ -72,7 +72,9 @@ public class RecipeService extends CrudService<RecipeDto, Recipe, RecipeReposito
     public Collection<RecipeDto> getByProductId(String entityId) {
         List<RecipeDto> recipes = new ArrayList<>();
         EntityToDtoMapper<Recipe, RecipeDto> mapper = getMapper();
-        getMongoRepository().findByProductIdIn(entityId).forEach(recipe -> {
+        List<String> entities = new ArrayList<>();
+        entities.add(entityId);
+        getMongoRepository().findByProductIdIn(entities).forEach(recipe -> {
             recipes.add(mapper.entityToDto(recipe));
         });
         return recipes;
@@ -92,5 +94,14 @@ public class RecipeService extends CrudService<RecipeDto, Recipe, RecipeReposito
         Recipe recipe = recipeOptional.get();
         recipe.setImageAsByteArray(imageAsByteArray);
         getMongoRepository().save(recipe);
+    }
+
+    public Collection<RecipeDto> getByProductIds(Collection<String> productsIds) {
+        List<RecipeDto> recipes = new ArrayList<>();
+        EntityToDtoMapper<Recipe, RecipeDto> mapper = getMapper();
+        getMongoRepository().findByProductIdIn(productsIds).forEach(recipe -> {
+            recipes.add(mapper.entityToDto(recipe));
+        });
+        return recipes;
     }
 }
