@@ -3,14 +3,12 @@ package com.surmin.recipe.service;
 import com.surmin.recipe.exception.EntityNotFoundException;
 import com.surmin.recipe.mapper.EntityToDtoMapper;
 import com.surmin.recipe.mapper.RecipeMapper;
+import com.surmin.recipe.model.Ingredient;
 import com.surmin.recipe.model.Recipe;
 import com.surmin.recipe.model.RecipeDto;
 import com.surmin.recipe.repository.RecipeRepository;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -57,7 +55,6 @@ public class RecipeService extends CrudService<RecipeDto, Recipe, RecipeReposito
         }
         List<RecipeDto> list = mongoTemplate.find(query,Recipe.class).stream().map(getMapper()::entityToDto)
                 .collect(Collectors.toList());
-        list.forEach(System.out::println);
         return new PageImpl<>(list, pageable, list.size());
     }
 
@@ -75,6 +72,19 @@ public class RecipeService extends CrudService<RecipeDto, Recipe, RecipeReposito
         getMongoRepository().findByProductIdIn(entityId).forEach(recipe -> {
             recipes.add(mapper.entityToDto(recipe));
         });
+        return recipes;
+    }
+
+    public Collection<RecipeDto> getByIngredientQuantitiesIn(Collection<Ingredient> ingredients) {
+        Query query = new Query();
+        for (Ingredient ingredient : ingredients) {
+            query.addCriteria(Criteria.where("ingredients.productId").is(ingredient.getProductId())
+                    .and("ingredients.weight").lte(ingredient.getWeight())
+            );
+        }
+        EntityToDtoMapper<Recipe, RecipeDto> mapper = getMapper();
+        Set<RecipeDto> recipes = new HashSet<>();
+        mongoTemplate.find(query, Recipe.class).forEach(recipe -> recipes.add(mapper.entityToDto(recipe)));
         return recipes;
     }
 

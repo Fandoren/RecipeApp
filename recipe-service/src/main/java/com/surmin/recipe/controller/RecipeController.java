@@ -1,5 +1,6 @@
 package com.surmin.recipe.controller;
 
+import com.surmin.recipe.model.Ingredient;
 import com.surmin.recipe.model.Recipe;
 import com.surmin.recipe.model.RecipeDto;
 import com.surmin.recipe.service.RecipeService;
@@ -58,6 +59,11 @@ public class RecipeController {
     @GetMapping("products/{entityId}")
     public Collection<RecipeDto> getByProductIdIn(@PathVariable("entityId") String entityId) {
         return recipeService.getByProductId(entityId);
+    }
+
+    @PostMapping("ingredients/")
+    public Collection<RecipeDto> getByIngredientQuantitiesIn(@RequestBody Collection<Ingredient> ingredients) {
+        return recipeService.getByIngredientQuantitiesIn(ingredients);
     }
 
     @PostMapping
