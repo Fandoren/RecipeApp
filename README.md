@@ -44,3 +44,7 @@
   4. Uaa Service
   5. Recipe Service
 * After launch of all microservice you can go on to launching Frontend part of application
+
+# Swagger links
+
+* [RECIPE SERVICE](http://localhost:10010/swagger-ui/#/)
