@@ -3,7 +3,7 @@ spring:
     name: registry-service
   cloud:
     config:
-      uri: http://localhost:10100
+      uri: http://${DOCKER_HOST:localhost}:10100
 eureka:
   client:
     register-with-eureka: false

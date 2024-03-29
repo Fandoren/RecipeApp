@@ -1,0 +1,101 @@
+version: '2.2'
+services:
+  mymongodb:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+  mypostgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    depends_on:
+      - mymongodb
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
+  config-service:
+    build: ./config-service
+    ports:
+      - "10100:10100"
+    restart: always
+    network_mode: host
+    healthcheck:
+      test: "curl --fail --silent localhost:10100/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - mypostgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  registry-service:
+    build: ./registry-service
+    ports:
+      - "10050:10050"
+    restart: always
+    network_mode: host
+    depends_on:
+      config-service:
+        condition: service_healthy
+    healthcheck:
+      test: "curl --fail --silent localhost:10050/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  gateway-service:
+    build: ./gateway-service
+    ports:
+      - "10060:10060"
+    restart: always
+    network_mode: host
+    healthcheck:
+      test: "curl --fail --silent localhost:10060/actuator/health | grep UP || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      registry-service:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  uaa-service:
+    build: ./uaa-service
+    ports:
+      - "10020:10020"
+    restart: always
+    network_mode: host
+    depends_on:
+      gateway-service:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+  recipe-service:
+    build: ./recipe-service
+    ports:
+      - "10010:10010"
+    restart: always
+    network_mode: host
+    depends_on:
+      - uaa-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create

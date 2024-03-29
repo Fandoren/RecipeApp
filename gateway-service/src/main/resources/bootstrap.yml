@@ -5,4 +5,4 @@ spring:
     name: gateway-service
   cloud:
     config:
-      uri: http://localhost:10100
+      uri: http://${DOCKER_HOST:localhost}:10100

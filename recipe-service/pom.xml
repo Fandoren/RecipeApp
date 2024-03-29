@@ -31,4 +31,8 @@
             <version>3.0.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>recipe-service</finalName>
+    </build>
 </project>

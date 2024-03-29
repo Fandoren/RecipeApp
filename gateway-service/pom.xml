@@ -44,4 +44,7 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <finalName>gateway-service</finalName>
+    </build>
 </project>

@@ -26,4 +26,8 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>registry-service</finalName>
+    </build>
 </project>

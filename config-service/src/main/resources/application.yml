@@ -17,6 +17,6 @@ spring:
 eureka:
   client:
     region: default
-    registry-fetch-interval-seconds: 5
+    registry-fetch-interval-seconds: 15
     service-url:
-      defaultZone: http://localhost:10050/eureka/
+      defaultZone: http://${DOCKER_HOST:localhost}:10050/eureka/

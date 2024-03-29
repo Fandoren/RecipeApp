@@ -1,3 +1,9 @@
 spring:
   application:
     name: config-service
+management:
+  security:
+    enabled: false
+endpoints:
+  health:
+    sensitive: false

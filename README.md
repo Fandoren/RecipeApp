@@ -48,3 +48,11 @@
 # Swagger links
 
 * [RECIPE SERVICE](http://localhost:10010/swagger-ui/#/)
+
+# Docker
+
+If you want to launch application in docker container, you need to follow next steps:
+
+* Download docker (or Docker Desktop)
+* Install docker and launch docker daemon
+* In core folder of this project run command `docker-compose up --build`
