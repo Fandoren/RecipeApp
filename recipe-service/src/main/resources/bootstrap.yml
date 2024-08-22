@@ -1,13 +1,16 @@
 spring:
   application:
     name: recipe-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: recipes
+      username: rootuser
+      password: rootpass
   cloud:
     config:
-      uri: http://${DOCKER_HOST:localhost}:10100
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${DOCKER_HOST:localhost}:10050/eureka/
+      uri: http://localhost:10100
 logging:
   level:
     org:

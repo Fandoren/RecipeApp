@@ -1,10 +1,13 @@
 spring:
   application:
     name: uaa-service
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: users
+      username: rootuser
+      password: rootpass
   cloud:
     config:
-      uri: http://${DOCKER_HOST:localhost}:10100
-eureka:
-  client:
-    service-url:
-      defaultZone: http://${DOCKER_HOST:localhost}:10050/eureka/
+      uri: http://localhost:10100

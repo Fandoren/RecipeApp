@@ -1,101 +1,97 @@
-version: '2.2'
 services:
-  mymongodb:
+  mongodb-service:
     image: mongo
-    restart: always
+    restart: unless-stopped
     ports:
       - "27017:27017"
-  mypostgres:
-    image: postgres
-    restart: always
-    ports:
-      - "5432:5432"
-    depends_on:
-      - mymongodb
     environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=mydb
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    networks:
+      - backend
   config-service:
+    container_name: config-service
     build: ./config-service
     ports:
       - "10100:10100"
     restart: always
-    network_mode: host
     healthcheck:
       test: "curl --fail --silent localhost:10100/actuator/health | grep UP || exit 1"
-      interval: 20s
-      timeout: 5s
+      interval: 10s
+      timeout: 30s
       retries: 5
     depends_on:
-      - mypostgres
+      - mongodb-service
+    networks:
+      - backend
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - EUREKA_HOST=registry-service
+      - EUREKA_PORT=10050
   registry-service:
+    container_name: registry-service
     build: ./registry-service
     ports:
       - "10050:10050"
     restart: always
-    network_mode: host
     depends_on:
       config-service:
         condition: service_healthy
-    healthcheck:
-      test: "curl --fail --silent localhost:10050/actuator/health | grep UP || exit 1"
-      interval: 20s
-      timeout: 5s
-      retries: 5
+    networks:
+      - backend
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:10100
   gateway-service:
+    container_name: gateway-service
     build: ./gateway-service
     ports:
       - "10060:10060"
     restart: always
-    network_mode: host
     healthcheck:
       test: "curl --fail --silent localhost:10060/actuator/health | grep UP || exit 1"
-      interval: 20s
+      interval: 10s
       timeout: 5s
       retries: 5
     depends_on:
-      registry-service:
-        condition: service_healthy
+      - registry-service
+    networks:
+      - backend
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:10100
+      - EUREKA_HOST=registry-service
+      - EUREKA_PORT=10050
   uaa-service:
+    container_name: uaa-service
     build: ./uaa-service
     ports:
       - "10020:10020"
     restart: always
-    network_mode: host
     depends_on:
       gateway-service:
         condition: service_healthy
+    networks:
+      - backend
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:10100
+      - EUREKA_HOST=registry-service
+      - EUREKA_PORT=10050
+      - SPRING_DATA_MONGODB_HOST=mongodb-service
   recipe-service:
+    container_name: recipe-service
     build: ./recipe-service
     ports:
       - "10010:10010"
     restart: always
-    network_mode: host
     depends_on:
-      - uaa-service
+      gateway-service:
+        condition: service_healthy
+    networks:
+      - backend
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://mypostgres:5432/mydb
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_CONFIG_IMPORT=configserver:http://config-service:10100
+      - EUREKA_HOST=registry-service
+      - EUREKA_PORT=10050
+      - SPRING_DATA_MONGODB_HOST=mongodb-service
+
+networks:
+  backend:
+    driver: bridge

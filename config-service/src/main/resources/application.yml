@@ -13,10 +13,11 @@ spring:
             - spec/config/default
           force-pull: false
           ignoreLocalSshSettings: false
+          default-label: master
 
 eureka:
   client:
     region: default
     registry-fetch-interval-seconds: 15
     service-url:
-      defaultZone: http://${DOCKER_HOST:localhost}:10050/eureka/
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:10050}/eureka/
