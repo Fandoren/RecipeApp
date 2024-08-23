@@ -1,0 +1,33 @@
+services:
+  mongodb-service:
+    container_name: mongodb-service
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    volumes:
+      - ./data:/data/db
+      - ./mongo-seed:/docker-entrypoint-initdb.d
+    networks:
+      - database-network
+
+  mongo-express-service:
+    container_name: mongo-express-service
+    image: mongo-express
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: rootuser
+      ME_CONFIG_MONGODB_ADMINPASSWORD: rootpass
+      ME_CONFIG_MONGODB_URL: mongodb://rootuser:rootpass@mongodb-service:27017/
+      ME_CONFIG_BASICAUTH: false
+    networks:
+      - database-network
+
+networks:
+  database-network:
+    name: database-network

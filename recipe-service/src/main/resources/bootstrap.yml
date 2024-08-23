@@ -6,8 +6,9 @@ spring:
       host: localhost
       port: 27017
       database: recipes
-      username: rootuser
-      password: rootpass
+      username: adminUser
+      password: adminPass
+      authentication-database: admin
   cloud:
     config:
       uri: http://localhost:10100

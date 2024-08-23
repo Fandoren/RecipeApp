@@ -6,8 +6,8 @@ spring:
       host: localhost
       port: 27017
       database: users
-      username: rootuser
-      password: rootpass
+      username: adminUser
+      password: adminPass
   cloud:
     config:
       uri: http://localhost:10100

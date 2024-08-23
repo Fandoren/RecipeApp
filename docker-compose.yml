@@ -1,14 +1,4 @@
 services:
-  mongodb-service:
-    image: mongo
-    restart: unless-stopped
-    ports:
-      - "27017:27017"
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootuser
-      - MONGO_INITDB_ROOT_PASSWORD=rootpass
-    networks:
-      - backend
   config-service:
     container_name: config-service
     build: ./config-service
@@ -20,8 +10,6 @@ services:
       interval: 10s
       timeout: 30s
       retries: 5
-    depends_on:
-      - mongodb-service
     networks:
       - backend
     environment:
@@ -70,11 +58,18 @@ services:
         condition: service_healthy
     networks:
       - backend
+      - database
     environment:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:10100
       - EUREKA_HOST=registry-service
       - EUREKA_PORT=10050
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=test
       - SPRING_DATA_MONGODB_HOST=mongodb-service
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_USERNAME=adminUser
+      - SPRING_DATA_MONGODB_PASSWORD=adminPass
+      - SPRING_DATA_MONGODB_DATABASE=users
+
   recipe-service:
     container_name: recipe-service
     build: ./recipe-service
@@ -86,12 +81,21 @@ services:
         condition: service_healthy
     networks:
       - backend
+      - database
     environment:
       - SPRING_CONFIG_IMPORT=configserver:http://config-service:10100
       - EUREKA_HOST=registry-service
       - EUREKA_PORT=10050
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=test
       - SPRING_DATA_MONGODB_HOST=mongodb-service
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_USERNAME=adminUser
+      - SPRING_DATA_MONGODB_PASSWORD=adminPass
+      - SPRING_DATA_MONGODB_DATABASE=recipes
 
 networks:
   backend:
     driver: bridge
+  database:
+    external:
+      name: database-network
